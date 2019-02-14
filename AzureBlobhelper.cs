@@ -54,21 +54,21 @@ public class AzureStorageHelper
 
             var fileStreamData= new MemoryStream(fileByteData);
             var ResourceData = new ResourceData();
-            //// Retrieve storage account from connection string.
+            // Retrieve storage account from connection string.
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("AzureStorageConnectionString"));
 
-            //// Create the blob client.
+            // Create the blob client.
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
-            //// Retrieve a reference to a container.
+            // Retrieve a reference to a container.
             CloudBlobContainer container = blobClient.GetContainerReference("testblobcontainer");
 
-            //// Create the container if it doesn't already exist.
+            // Create the container if it doesn't already exist.
             container.CreateIfNotExists();
 
             CloudBlockBlob blob = container.GetBlockBlobReference(ResourceGlobalID + ".pdf");
 
-            //// Create or overwrite the "myblob" blob with contents from a file.            
+            // Create / Overwrite the "myblob" blob with contents from a file.            
             blob.UploadFromStream(fileStreamData);
 
             ResourceData.ResourceGlobalID = ResourceGlobalID;
